@@ -163,7 +163,7 @@ H5Dread(hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
     H5VL_object_t  *vol_obj     = NULL;
     herr_t          ret_value   = SUCCEED;      /* Return value */
 
-    FUNC_ENTER_API(FAIL)
+    FUNC_ENTER_API_NOLOCK(FAIL)
     H5TRACE6("e", "iiiiix", dset_id, mem_type_id, mem_space_id, file_space_id,
              dxpl_id, buf);
 
@@ -192,7 +192,7 @@ H5Dread(hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
         HGOTO_ERROR(H5E_DATASET, H5E_READERROR, FAIL, "can't read data")
 
 done:
-    FUNC_LEAVE_API(ret_value)
+    FUNC_LEAVE_API_NOLOCK(ret_value)
 } /* end H5Dread() */
 
 

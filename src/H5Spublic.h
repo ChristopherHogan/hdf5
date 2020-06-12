@@ -180,6 +180,9 @@ H5_DLL herr_t H5Ssel_iter_get_seq_list(hid_t sel_iter_id, size_t maxseq,
     size_t maxbytes, size_t *nseq, size_t *nbytes, hsize_t *off, size_t *len);
 H5_DLL herr_t H5Ssel_iter_close(hid_t sel_iter_id);
 
+// TODO(chogan): Remove this
+H5_DLL herr_t H5S__init_package();
+
 /* Symbols defined for compatibility with previous versions of the HDF5 API.
  *
  * Use of these symbols is deprecated.

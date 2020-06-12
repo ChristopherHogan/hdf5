@@ -861,11 +861,11 @@ hbool_t
 H5F_shared_has_feature(const H5F_shared_t *f_sh, unsigned feature)
 {
     /* Use FUNC_ENTER_NOAPI_NOINIT_NOERR here to avoid performance issues */
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
     HDassert(f_sh);
 
-    FUNC_LEAVE_NOAPI((hbool_t)(f_sh->lf->feature_flags & feature))
+    FUNC_LEAVE_NOAPI_THREADSAFE((hbool_t)(f_sh->lf->feature_flags & feature))
 } /* end H5F_shared_has_feature() */
 
 

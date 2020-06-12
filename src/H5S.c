@@ -259,7 +259,7 @@ H5S_get_validated_dataspace(hid_t space_id, const H5S_t **space)
 {
     herr_t ret_value = SUCCEED;     /* Return value */
 
-    FUNC_ENTER_NOAPI(FAIL)
+    FUNC_ENTER_NOAPI_THREADSAFE(FAIL)
 
     HDassert(space);
 
@@ -281,7 +281,7 @@ H5S_get_validated_dataspace(hid_t space_id, const H5S_t **space)
     } /* end else */
 
 done:
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_get_validated_dataspace() */
 
 
@@ -940,7 +940,7 @@ H5S_get_simple_extent_ndims(const H5S_t *ds)
 {
     int    ret_value = -1;         /* Return value */
 
-    FUNC_ENTER_NOAPI(FAIL)
+    FUNC_ENTER_NOAPI_THREADSAFE(FAIL)
 
     /* check args */
     HDassert(ds);
@@ -959,7 +959,7 @@ H5S_get_simple_extent_ndims(const H5S_t *ds)
     } /* end switch */
 
 done:
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_get_simple_extent_ndims() */
 
 
@@ -1926,7 +1926,7 @@ H5S_has_extent(const H5S_t *ds)
 {
     hbool_t ret_value = FALSE;          /* Return value */
 
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
     HDassert(ds);
 
@@ -1935,7 +1935,7 @@ H5S_has_extent(const H5S_t *ds)
     else
         ret_value = TRUE;
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_has_extent() */
 
 

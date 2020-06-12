@@ -2222,10 +2222,23 @@ H5_DLL herr_t H5CX_pop(void);
     FUNC_ENTER_NOAPI_INIT(err)                                                \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
+#define FUNC_ENTER_NOAPI_THREADSAFE(err) {                                    \
+    FUNC_ENTER_COMMON(!H5_IS_API(FUNC));                                      \
+    FUNC_ENTER_NOAPI_INIT(err)                                                \
+    FUNC_ENTER_API_THREADSAFE                                                 \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
 /* Use this macro for all non-API functions, which propagate errors, but don't issue them */
 #define FUNC_ENTER_NOAPI_NOERR {                                              \
     FUNC_ENTER_COMMON_NOERR(!H5_IS_API(FUNC));                                \
     FUNC_ENTER_NOAPI_INIT(-)                                                  \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
+#define FUNC_ENTER_NOAPI_NOERR_THREADSAFE {                                   \
+    FUNC_ENTER_COMMON_NOERR(!H5_IS_API(FUNC));                                \
+    FUNC_ENTER_NOAPI_INIT(-)                                                  \
+    /* TODO(chogan): Remove "API". Cancellation should be handled at API level */ \
+    FUNC_ENTER_API_THREADSAFE;                                                \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
 /*
@@ -2241,6 +2254,12 @@ H5_DLL herr_t H5CX_pop(void);
     H5_PUSH_FUNC                                                              \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
+#define FUNC_ENTER_NOAPI_NOINIT_THREADSAFE {                                  \
+    FUNC_ENTER_COMMON(!H5_IS_API(FUNC));                                      \
+    FUNC_ENTER_API_THREADSAFE                                                 \
+    H5_PUSH_FUNC                                                              \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
 /*
  * Use this macro for non-API functions which fall into these categories:
  *      - static functions, since they must be called from a function in the
@@ -2252,6 +2271,12 @@ H5_DLL herr_t H5CX_pop(void);
  */
 #define FUNC_ENTER_NOAPI_NOINIT_NOERR {                                       \
     FUNC_ENTER_COMMON_NOERR(!H5_IS_API(FUNC));                                \
+    H5_PUSH_FUNC                                                              \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
+#define FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE {                            \
+    FUNC_ENTER_COMMON_NOERR(!H5_IS_API(FUNC));                                \
+    FUNC_ENTER_API_THREADSAFE                                                 \
     H5_PUSH_FUNC                                                              \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
@@ -2312,6 +2337,12 @@ H5_DLL herr_t H5CX_pop(void);
     H5_PUSH_FUNC                                                              \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
+#define FUNC_ENTER_PACKAGE_NOERR_THREADSAFE {                                 \
+    FUNC_ENTER_COMMON_NOERR(H5_IS_PKG(FUNC));                                 \
+    FUNC_ENTER_API_THREADSAFE                                                 \
+    H5_PUSH_FUNC                                                              \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
 /* Use the following macro as replacement for the FUNC_ENTER_PACKAGE
  * macro when the function needs to set up a metadata tag. */
 #define FUNC_ENTER_PACKAGE_TAG(tag) {                                         \
@@ -2328,9 +2359,21 @@ H5_DLL herr_t H5CX_pop(void);
     H5_PUSH_FUNC                                                              \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
+#define FUNC_ENTER_STATIC_THREADSAFE {                                        \
+    FUNC_ENTER_COMMON(H5_IS_PKG(FUNC));                                       \
+    FUNC_ENTER_API_THREADSAFE                                                 \
+    H5_PUSH_FUNC                                                              \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
 /* Use this macro for staticly-scoped functions which propgate errors, but don't issue them */
 #define FUNC_ENTER_STATIC_NOERR {                                             \
     FUNC_ENTER_COMMON_NOERR(H5_IS_PKG(FUNC));                                 \
+    H5_PUSH_FUNC                                                              \
+    if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
+
+#define FUNC_ENTER_STATIC_NOERR_THREADSAFE {                                  \
+    FUNC_ENTER_COMMON_NOERR(H5_IS_PKG(FUNC));                                 \
+    FUNC_ENTER_API_THREADSAFE                                                 \
     H5_PUSH_FUNC                                                              \
     if(H5_PKG_INIT_VAR || !H5_TERM_GLOBAL) {
 
@@ -2411,6 +2454,14 @@ H5_DLL herr_t H5CX_pop(void);
     } /*end scope from end of FUNC_ENTER*/                                    \
     H5_POP_FUNC                                                               \
     return(ret_value);                                                        \
+} /*end scope from beginning of FUNC_ENTER*/
+
+#define FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)             \
+  ;                                             \
+  } /*end scope from end of FUNC_ENTER*/        \
+  H5_POP_FUNC                                   \
+  FUNC_LEAVE_API_THREADSAFE                     \
+  return(ret_value);                            \
 } /*end scope from beginning of FUNC_ENTER*/
 
 #define FUNC_LEAVE_NOAPI_VOID                                                 \

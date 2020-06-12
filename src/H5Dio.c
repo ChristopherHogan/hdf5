@@ -835,7 +835,7 @@ static herr_t
 H5D__ioinfo_init(H5D_t *dset, const H5D_type_info_t *type_info,
     H5D_storage_t *store, H5D_io_info_t *io_info)
 {
-    FUNC_ENTER_STATIC_NOERR
+    FUNC_ENTER_STATIC_NOERR_THREADSAFE
 
     /* check args */
     HDassert(dset);
@@ -878,7 +878,7 @@ H5D__ioinfo_init(H5D_t *dset, const H5D_type_info_t *type_info,
     io_info->using_mpi_vfd = H5F_HAS_FEATURE(dset->oloc.file, H5FD_FEAT_HAS_MPI);
 #endif /* H5_HAVE_PARALLEL */
 
-    FUNC_LEAVE_NOAPI(SUCCEED)
+    FUNC_LEAVE_NOAPI_THREADSAFE(SUCCEED)
 } /* end H5D__ioinfo_init() */
 
 
@@ -904,7 +904,7 @@ H5D__typeinfo_init(const H5D_t *dset, hid_t mem_type_id, hbool_t do_write,
     H5Z_data_xform_t *data_transform;   /* Data transform info */
     herr_t ret_value = SUCCEED;	        /* Return value	*/
 
-    FUNC_ENTER_STATIC
+    FUNC_ENTER_STATIC_THREADSAFE
 
     /* check args */
     HDassert(type_info);
@@ -1051,7 +1051,7 @@ H5D__typeinfo_init(const H5D_t *dset, hid_t mem_type_id, hbool_t do_write,
     } /* end else */
 
 done:
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5D__typeinfo_init() */
 
 #ifdef H5_HAVE_PARALLEL
@@ -1226,7 +1226,7 @@ done:
 static herr_t
 H5D__typeinfo_term(const H5D_type_info_t *type_info)
 {
-    FUNC_ENTER_STATIC_NOERR
+    FUNC_ENTER_STATIC_NOERR_THREADSAFE
 
     /* Check for releasing datatype conversion & background buffers */
     if(type_info->tconv_buf_allocated) {
@@ -1238,6 +1238,6 @@ H5D__typeinfo_term(const H5D_type_info_t *type_info)
         (void)H5FL_BLK_FREE(type_conv, type_info->bkg_buf);
     } /* end if */
 
-    FUNC_LEAVE_NOAPI(SUCCEED)
+    FUNC_LEAVE_NOAPI_THREADSAFE(SUCCEED)
 } /* end H5D__typeinfo_term() */
 

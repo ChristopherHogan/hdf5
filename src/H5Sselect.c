@@ -434,12 +434,12 @@ done:
 H5_ATTR_PURE hsize_t
 H5S_get_select_npoints(const H5S_t *space)
 {
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
     /* Check args */
     HDassert(space);
 
-    FUNC_LEAVE_NOAPI(space->select.num_elem)
+    FUNC_LEAVE_NOAPI_THREADSAFE(space->select.num_elem)
 } /* end H5S_get_select_npoints() */
 
 
@@ -1155,7 +1155,7 @@ H5S_select_iter_init(H5S_sel_iter_t *sel_iter, const H5S_t *space,
 {
     herr_t ret_value = FAIL;    /* Return value */
 
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
     /* Check args */
     HDassert(sel_iter);
@@ -1185,7 +1185,7 @@ H5S_select_iter_init(H5S_sel_iter_t *sel_iter, const H5S_t *space,
     ret_value = (*space->select.type->iter_init)(space, sel_iter);
     HDassert(sel_iter->type);
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_select_iter_init() */
 
 
@@ -1458,7 +1458,7 @@ H5S_select_iter_get_seq_list(H5S_sel_iter_t *iter, size_t maxseq, size_t maxelmt
 {
     herr_t ret_value = FAIL;    /* Return value */
 
-    FUNC_ENTER_NOAPI_NOINIT
+    FUNC_ENTER_NOAPI_NOINIT_THREADSAFE
 
     /* Sanity check */
     HDassert(iter);
@@ -1468,7 +1468,7 @@ H5S_select_iter_get_seq_list(H5S_sel_iter_t *iter, size_t maxseq, size_t maxelmt
         HGOTO_ERROR(H5E_DATASPACE, H5E_CANTGET, FAIL, "unable to get selection sequence list")
 
 done:
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_select_iter_get_seq_list() */
 
 
@@ -1497,7 +1497,7 @@ H5S_select_iter_release(H5S_sel_iter_t *sel_iter)
 {
     herr_t ret_value = FAIL;    /* Return value */
 
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
     /* Check args */
     HDassert(sel_iter);
@@ -1505,7 +1505,7 @@ H5S_select_iter_release(H5S_sel_iter_t *sel_iter)
     /* Call selection type-specific release routine */
     ret_value = (*sel_iter->type->iter_release)(sel_iter);
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_select_iter_release() */
 
 
@@ -1790,7 +1790,7 @@ H5S_select_shape_same(const H5S_t *space1, const H5S_t *space2)
     hbool_t iter_b_init = FALSE;    /* Selection b iteration info has been initialized */
     htri_t ret_value = TRUE;        /* Return value */
 
-    FUNC_ENTER_NOAPI(FAIL)
+    FUNC_ENTER_NOAPI_THREADSAFE(FAIL)
 
     /* Check args */
     HDassert(space1);
@@ -2025,7 +2025,7 @@ done:
     if(iter_b)
         iter_b = H5FL_FREE(H5S_sel_iter_t, iter_b);
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5S_select_shape_same() */
 
 

@@ -565,9 +565,10 @@ H5FD_sec2_get_eoa(const H5FD_t *_file, H5FD_mem_t H5_ATTR_UNUSED type)
 {
     const H5FD_sec2_t	*file = (const H5FD_sec2_t *)_file;
 
-    FUNC_ENTER_NOAPI_NOINIT_NOERR
+    // TODO(chogan): This isn't needed if entering here is a bug
+    FUNC_ENTER_NOAPI_NOINIT_NOERR_THREADSAFE
 
-    FUNC_LEAVE_NOAPI(file->eoa)
+    FUNC_LEAVE_NOAPI_THREADSAFE(file->eoa)
 } /* end H5FD_sec2_get_eoa() */
 
 

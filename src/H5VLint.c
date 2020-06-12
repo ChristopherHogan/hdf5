@@ -2164,7 +2164,7 @@ H5VL_set_vol_wrapper(const H5VL_object_t *vol_obj)
     H5VL_wrap_ctx_t *vol_wrap_ctx = NULL;       /* Object wrapping context */
     herr_t ret_value = SUCCEED;   /* Return value */
 
-    FUNC_ENTER_NOAPI(FAIL)
+    FUNC_ENTER_NOAPI_THREADSAFE(FAIL)
 
     /* Sanity check */
     HDassert(vol_obj);
@@ -2216,7 +2216,7 @@ done:
         /* Release object wrapping context */
         H5FL_FREE(H5VL_wrap_ctx_t, vol_wrap_ctx);
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5VL_set_vol_wrapper() */
 
 
@@ -2309,7 +2309,7 @@ H5VL_reset_vol_wrapper(void)
     H5VL_wrap_ctx_t *vol_wrap_ctx = NULL;       /* Object wrapping context */
     herr_t ret_value = SUCCEED;                 /* Return value */
 
-    FUNC_ENTER_NOAPI(FAIL)
+    FUNC_ENTER_NOAPI_THREADSAFE(FAIL)
 
     /* Retrieve the VOL object wrap context */
     if(H5CX_get_vol_wrap_ctx((void **)&vol_wrap_ctx) < 0)
@@ -2338,7 +2338,7 @@ H5VL_reset_vol_wrapper(void)
             HGOTO_ERROR(H5E_VOL, H5E_CANTSET, FAIL, "can't set VOL object wrap context")
 
 done:
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5VL_reset_vol_wrapper() */
 
 

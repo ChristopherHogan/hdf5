@@ -1005,7 +1005,7 @@ H5I_object_verify(hid_t id, H5I_type_t id_type)
     H5I_id_info_t  *id_ptr      = NULL;     /* Pointer to the new atom  */
     void           *ret_value   = NULL;     /* Return value             */
 
-    FUNC_ENTER_NOAPI_NOERR
+    FUNC_ENTER_NOAPI_NOERR_THREADSAFE
 
     HDassert(id_type >= 1 && (int)id_type < H5I_next_type);
 
@@ -1015,7 +1015,7 @@ H5I_object_verify(hid_t id, H5I_type_t id_type)
         ret_value = (void *)id_ptr->obj_ptr;        /* (Casting away const OK -QAK) */
     }
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* H5I_object_verify() */
 
 

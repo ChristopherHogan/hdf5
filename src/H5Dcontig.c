@@ -527,7 +527,7 @@ H5D__contig_is_space_alloc(const H5O_storage_t *storage)
 {
     hbool_t ret_value = FALSE;          /* Return value */
 
-    FUNC_ENTER_PACKAGE_NOERR
+    FUNC_ENTER_PACKAGE_NOERR_THREADSAFE
 
     /* Sanity checks */
     HDassert(storage);
@@ -535,7 +535,7 @@ H5D__contig_is_space_alloc(const H5O_storage_t *storage)
     /* Set return value */
     ret_value = (hbool_t)H5F_addr_defined(storage->u.contig.addr);
 
-    FUNC_LEAVE_NOAPI(ret_value)
+    FUNC_LEAVE_NOAPI_THREADSAFE(ret_value)
 } /* end H5D__contig_is_space_alloc() */
 
 
@@ -554,12 +554,12 @@ H5D__contig_is_space_alloc(const H5O_storage_t *storage)
 hbool_t
 H5D__contig_is_data_cached(const H5D_shared_t *shared_dset)
 {
-    FUNC_ENTER_PACKAGE_NOERR
+    FUNC_ENTER_PACKAGE_NOERR_THREADSAFE
 
     /* Sanity checks */
     HDassert(shared_dset);
 
-    FUNC_LEAVE_NOAPI(shared_dset->cache.contig.sieve_size > 0)
+    FUNC_LEAVE_NOAPI_THREADSAFE(shared_dset->cache.contig.sieve_size > 0)
 } /* end H5D__contig_is_data_cached() */
 
 
@@ -580,12 +580,12 @@ H5D__contig_io_init(const H5D_io_info_t *io_info, const H5D_type_info_t H5_ATTR_
     hsize_t H5_ATTR_UNUSED nelmts, const H5S_t H5_ATTR_UNUSED *file_space, const H5S_t H5_ATTR_UNUSED *mem_space,
     H5D_chunk_map_t H5_ATTR_UNUSED *cm)
 {
-    FUNC_ENTER_STATIC_NOERR
+    FUNC_ENTER_STATIC_NOERR_THREADSAFE
 
     io_info->store->contig.dset_addr = io_info->dset->shared->layout.storage.u.contig.addr;
     io_info->store->contig.dset_size = io_info->dset->shared->layout.storage.u.contig.size;
 
-    FUNC_LEAVE_NOAPI(SUCCEED)
+    FUNC_LEAVE_NOAPI_THREADSAFE(SUCCEED)
 } /* end H5D__contig_io_init() */
 
 
